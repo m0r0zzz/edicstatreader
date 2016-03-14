@@ -8,25 +8,29 @@
 
 using namespace std;
 
-/** @brief Statistics header address**/
-#define HDR_ADDR 0x0060
+/** @brief Statistics header copy 1 address**/
+#define HDR_ADDR1 0x0060
+/** @brief Statistics header copy 2 address**/
+#define HDR_ADDR2 0x2FE0
+/** @brief Statistics header copy 3 address**/
+#define HDR_ADDR3 0x3FE0
 /** @brief Start of Global statistics area address**/
 #define GLOB_ADDR 0x0080
 /** @brief End of Global statistics area address (past-the-end ptr)**/
 #define GLOB_END_ADDR (GLOB_ADDR + GLOB_NUM*RECSIZE)
 /** @brief Start of Operative statistics area address**/
-#define OPER_ADDR 0x0840
+#define OPER_ADDR 0x3000
 /** @brief End of Operative statistics area address (past-the-end ptr)**/
 #define OPER_END_ADDR (OPER_ADDR + OPER_NUM*RECSIZE)
 
 /** @brief Number of Global records**/
-#define GLOB_NUM 62
+#define GLOB_NUM 379
 /** @brief Number of immutable Global records (they will be written only once) **/
-#define GLOB_IMM_NUM 2
+#define GLOB_IMM_NUM 32
 /** @brief Number of Operative records**/
-#define OPER_NUM 62
+#define OPER_NUM 127
 /** @brief Number of immutable Operative records (they will be written only once) **/
-#define OPER_IMM_NUM 2
+#define OPER_IMM_NUM 16
 /** @brief Size of statistics record, bytes**/
 #define RECSIZE 32
 /** @brief Size of ptr group in statistics header, ptrs**/
@@ -46,7 +50,7 @@ struct __attribute__((__packed__, aligned(1))) stat_header {
 	uint16_t operend[PTRNUM]; /**< Operative area last record pointer*/
 	uint32_t nandaddr[PTRNUM]; /**< Reserved (pad)*/
 	uint8_t rebootcnt; /** Soft reboots counter*/
-	uint8_t __resv1; /**< Reserved (pad)*/
+	uint8_t resetcnt; /**< Hard resets counter*/
 	uint16_t __resv2; /**< Reserved (pad)*/
 };
 
